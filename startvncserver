@@ -1,0 +1,4 @@
+#!/bin/bash
+USER=$(whoami)
+export USER
+vncserver -geometry 2560x1440
