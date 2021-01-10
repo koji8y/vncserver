@@ -3,6 +3,15 @@ vncserver
 
 vncserver using tightvnc
 
+## Run an X client program.
+1. Set environment variable `DISPLAY` to `${your_host_name}:1`.
+    - Port 6001/tcp is opened for X window system screen.
+1. Start the X client program.
+
+## View X window system screen.
+1. Connect to `${your_host_name}:1` with vnc client / vnc viewer.
+    - Port 5901/tcp is opened for vnc.
+
 ## Configuration to build your own image
 ### Environment variables
 - `vncpasswd`
