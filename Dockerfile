@@ -47,7 +47,16 @@ RUN set -ex \
 #  && mkdir /root/.vnc
 RUN set -ex \
   && apt install -y xterm
-ADD passwd xstartup /root/.vnc/
+ARG vncpasswd
+RUN set -ex \
+  && echo ${vncpasswd:-hogehoge} | vncpasswd -f > /root/.vnc/passwd \
+  && chmod go-r /root/.vnc/passwd
+#RUN set -ex \
+#  &&echo "${vncpasswd:-hogehoge}" > /root/.vncpasswd
+#ADD passwd xstartup /root/.vnc/
+ADD xstartup /root/.vnc/
 ADD startvncserver /root/
 ENV USER=root
-ADD google-chrome-stable_current_amd64.deb /root/
+#ADD google-chrome-stable_current_amd64.deb /root/
+
+ENTRYPOINT ["/root/startvncserver"]
