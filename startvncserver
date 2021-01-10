@@ -4,7 +4,9 @@ export USER
 vncserver -geometry 2560x1440
 case "$@" in
     "")
+        exec tail -f /dev/null
 	;;
     *)
 	exec $@
+        ;;
 esac

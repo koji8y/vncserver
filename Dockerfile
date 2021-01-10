@@ -1,4 +1,4 @@
-FROM ubuntu as vncserver
+FROM ubuntu:20.04 as vncserver
 
 ARG proxy
 ENV HOME=/root
@@ -22,9 +22,6 @@ RUN set -ex \
   && apt upgrade -y
 RUN set -ex \
   && (echo 31; echo 1; echo 12) | DEBIAN_FRONTEND=noninteractive apt install -y keyboard-configuration
-#RUN set -ex \
-#  && apt update \
-#  && apt install --no-install-recommends -y xfce4 xfce4-goodies
 RUN set -ex \
   && apt update \
   && echo 2 | apt install -y gdm3
@@ -38,25 +35,15 @@ RUN set -ex \
   && apt update \
   && apt install -y tightvncserver \
   && mkdir /root/.vnc
-#RUN set -ex \
-#  && apt update \
-#  && apt install --no-install-recommends -y xfce4 xfce4-goodies
-#RUN set -ex \
-#  && apt update \
-#  && apt install --no-install-recommends -y tightvncserver \
-#  && mkdir /root/.vnc
 RUN set -ex \
   && apt install -y xterm
 ARG vncpasswd
 RUN set -ex \
   && echo ${vncpasswd:-hogehoge} | vncpasswd -f > /root/.vnc/passwd \
   && chmod go-r /root/.vnc/passwd
-#RUN set -ex \
-#  &&echo "${vncpasswd:-hogehoge}" > /root/.vncpasswd
-#ADD passwd xstartup /root/.vnc/
 ADD xstartup /root/.vnc/
 ADD startvncserver /root/
 ENV USER=root
-#ADD google-chrome-stable_current_amd64.deb /root/
 
+EXPOSE 5901/tcp 6001/tcp
 ENTRYPOINT ["/root/startvncserver"]
