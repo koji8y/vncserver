@@ -44,6 +44,10 @@ RUN set -ex \
 ADD xstartup /root/.vnc/
 ADD startvncserver /root/
 ENV USER=root
+RUN set -ex \
+  && rm -rf /tmp/.X*-lock
 
+HEALTHCHECK --interval=5s --start-period=1s \
+  CMD netstat -tln | grep -q '\<5901\>' && netstat -tln | grep -q '\<6001\>'
 EXPOSE 5901/tcp 6001/tcp
 ENTRYPOINT ["/root/startvncserver"]
