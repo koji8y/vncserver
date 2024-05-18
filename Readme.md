@@ -22,3 +22,5 @@ vncserver using tightvnc
     - It should be either of the following forms:
         - `http://username:password@proxy_host:port`
         - `http://proxy_host:port`
+- `restart`
+    - If `always` is set, the docker container for vncserver will be restarted after reboot.

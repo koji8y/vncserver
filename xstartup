@@ -1,9 +1,12 @@
 #!/bin/sh
 
-xrdb $HOME/.Xresources
+echo "DISPLAY=$DISPLAY" > $HOME/.display
+echo 'export DISPLAY' >> $HOME/.display
+
+if [ -f $HOME/.Xresources ]; then
+    xrdb $HOME/.Xresources
+fi
 xsetroot -solid grey
-#x-terminal-emulator -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
-#x-window-manager &
 startxfce4 < /dev/null > /dev/null 2>&1 &
 # Fix to make GNOME work
 export XKL_XMODMAP_DISABLE=1
