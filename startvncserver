@@ -2,6 +2,17 @@
 rm -rf /tmp/.X*-lock
 USER=$(whoami)
 export USER
+(missing=true; while $missing; do
+    missing=true
+    for f in /root/.vnc/*.log; do
+        if [ -f "$f" ]; then
+            missing=false
+        fi
+    done
+    if $missing; then
+        sleep 1
+    fi
+done; tail -f /root/.vnc/*.log) &
 vncserver -geometry 2560x1440 :1
 case "$@" in
     "")
