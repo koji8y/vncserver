@@ -1,4 +1,4 @@
-FROM ubuntu:24.04 as vncserver
+FROM ubuntu:22.04 as vncserver
 
 ARG proxy
 ENV HOME=/root
@@ -33,6 +33,7 @@ RUN : configure keyboard \
 #  && echo 2 | DEBIAN_FRONTEND=nointeractive apt install -y lightdm
 #  && apt install -y xfce4 xfce4-goodies
 RUN : install Xfce \
+  && echo 2 | DEBIAN_FRONTEND=nointeractive apt install -y lightdm \
   && apt install -y dbus-x11 xfce4 xfce4-goodies
 RUN : install vncserver \
   && set -ex \
