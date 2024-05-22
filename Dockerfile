@@ -1,4 +1,4 @@
-FROM ubuntu:22.04 as vncserver
+FROM ubuntu:24.04 as vncserver
 
 ARG proxy
 ENV HOME=/root
