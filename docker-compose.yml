@@ -7,10 +7,19 @@ services:
         proxy: "${proxy:-}"
         vncpasswd: "${vncpasswd:-}"
     restart: "${restart:-no}"
+    environment:
+      - XSERVER
+      - VNCSERVER
     ports:
       #- "22:22"
-      - "6001:6001"
-      - "5901:5901"
+      - published: ${XSERVER:-6001}
+        target: 6001
+        protocol: tcp
+        mode: host
+      - published: ${VNCSERVER:-5901}
+        target: 5901
+        protocol: tcp
+        mode: host
     command:
     - tail
     - "-f"
